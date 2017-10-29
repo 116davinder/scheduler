@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
+	"net/http"
 	"os/exec"
 )
 
-func main() {
+func adhoc(w http.ResponseWriter, req *http.Request) {
 	// app := "echo"
 	// arg1 := "Running My first Commandss in Golang"
 
@@ -17,4 +19,9 @@ func main() {
 	}
 
 	println(string(stdout))
+}
+
+func main() {
+	http.HandleFunc("/adhoc", adhoc)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

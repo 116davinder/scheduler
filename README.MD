@@ -8,5 +8,5 @@ It is Golang implementation.
 
 ## Notes*
 ```
-It only used to testing purpose yet.
+It only used for testing purpose yet.
 ```

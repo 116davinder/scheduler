@@ -1,0 +1,15 @@
+language: go
+sudo: false
+
+matrix:
+  include:
+    - go: 1.9
+
+install:
+  - github.com/gorilla/mux
+
+# script:
+#   - go get -t -v ./...
+#   - diff -u <(echo -n) <(gofmt -d .)
+#   - go tool vet .
+#   - go test -v -race ./...
