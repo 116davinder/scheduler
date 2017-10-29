@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"os/exec"
 )
@@ -22,6 +21,7 @@ func adhoc(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/adhoc", adhoc)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	router := &http.ServeMux{}
+	router.HandleFunc("/adhoc", adhoc)
+	http.ListenAndServe(":80", router)
 }
