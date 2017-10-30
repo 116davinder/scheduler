@@ -7,7 +7,7 @@ import (
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
 	// app := "echo"
-	// arg1 := "Running My first Commandss in Golang"
+	// arg1 := "Running My first Commands in Golang"
 
 	cmd := exec.Command("echo", "HOla")
 	stdout, err := cmd.Output()
@@ -23,5 +23,5 @@ func adhoc(w http.ResponseWriter, req *http.Request) {
 func main() {
 	router := &http.ServeMux{}
 	router.HandleFunc("/adhoc", adhoc)
-	http.ListenAndServe(":80", router)
+	http.ListenAndServe(":5000", router)
 }
