@@ -6,7 +6,7 @@ matrix:
     - go: 1.9
 
 install:
-  - github.com/gorilla/mux
+#  - github.com/gorilla/mux
 
 # script:
 #   - go get -t -v ./...
