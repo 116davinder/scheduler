@@ -5,19 +5,24 @@ import (
 	"os/exec"
 )
 
-func adhoc(w http.ResponseWriter, req *http.Request) {
-	// app := "echo"
-	// arg1 := "Running My first Commands in Golang"
+type queryJson struct {
+	Bash  string `json:"bash"`
+	Name  string `json:"name"`
+	Query string `json:"query"`
+}
 
-	cmd := exec.Command("echo", "HOla")
+func adhoc(w http.ResponseWriter, req *http.Request) {
+	cmd := exec.Command("echo","sleep")
 	stdout, err := cmd.Output()
 
 	if err != nil {
 		println(err.Error())
-		return
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte(err.Error()))
 	}
 
-	println(string(stdout))
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(string(stdout)))
 }
 
 func main() {
