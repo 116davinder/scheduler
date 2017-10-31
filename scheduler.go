@@ -12,7 +12,7 @@ type queryJson struct {
 }
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
-	cmd := exec.Command("sh","sleep 10;echo hola10")
+	cmd := exec.Command("echo","sleep")
 	stdout, err := cmd.Output()
 
 	if err != nil {
