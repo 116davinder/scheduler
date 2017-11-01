@@ -5,10 +5,14 @@ import (
 	"os/exec"
 )
 
-type queryJson struct {
-	Bash  string `json:"bash"`
+type InputJson struct {
 	Name  string `json:"name"`
-	Query string `json:"query"`
+	Query []byte `json:"query"`
+}
+
+type outputJson struct {
+	Name  string `json:"name"`
+	result []byte `json:"result"`
 }
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
