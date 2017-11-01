@@ -12,13 +12,14 @@ type queryJson struct {
 }
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
-	cmd := exec.Command("echo","sleep x; 121")
+	cmd := exec.Command("echo1","sleep x; 121")
 	stdout, err := cmd.Output()
 
 	if err != nil {
 		//println(err.Error())
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte("Error Code: "+ err.Error()))
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("Error: "+ err.Error()))
 	}
 
 	w.Header().Set("Content-Type", "application/json")
