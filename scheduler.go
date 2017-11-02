@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"os/exec"
+	"encoding/json"
 )
 
 type InputJson struct {
@@ -12,18 +13,20 @@ type InputJson struct {
 
 type outputJson struct {
 	Name  string `json:"name"`
-	result []byte `json:"result"`
+	result string `json:"result"`
 }
+
+type errOutput []outputJson
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
 	cmd := exec.Command("echo1","sleep x; 121")
 	stdout, err := cmd.Output()
 
 	if err != nil {
-		//println(err.Error())
+		errOutput := errOutput{outputJson{Name: "Error",result: err.Error()}}
 		w.WriteHeader(http.StatusBadRequest)
 		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte("Error: "+ err.Error()))
+		json.NewEncoder(w).Encode(errOutput)
 	}
 
 	w.Header().Set("Content-Type", "application/json")
