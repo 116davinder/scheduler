@@ -17,20 +17,24 @@ type outputJson struct {
 }
 
 type errOutput []outputJson
+type resOutput []outputJson
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
-	cmd := exec.Command("echo1","sleep x; 121")
+	cmd := exec.Command("echo1","sleep")
 	stdout, err := cmd.Output()
 
 	if err != nil {
-		errOutput := errOutput{outputJson{Name: "Error",result: err.Error()}}
+		errOutput := errOutput{outputJson{Name: "Error",result: "hola"}}
 		w.WriteHeader(http.StatusBadRequest)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(errOutput)
+	}else {
+		w.Header().Set("Content-Type", "application/json")
+		resOutput := resOutput{outputJson{Name: "Output", result: string(stdout)}}
+		json.NewEncoder(w).Encode(resOutput)
+		//w.Write([]byte(string(stdout)))
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(string(stdout)))
 }
 
 func main() {
