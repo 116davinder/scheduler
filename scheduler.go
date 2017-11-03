@@ -21,18 +21,21 @@ type resOutput []outputJson
 func adhoc(w http.ResponseWriter, req *http.Request) {
 	cmd := exec.Command("echo","sleep")
 	stdout, err:= cmd.Output()
-
+	w.Header().Set("Content-Type", "application/json")
 
 	if err != nil {
 		errOutput := errOutput{outputJson{Result: string(err.Error())}}
 		w.WriteHeader(http.StatusBadRequest)
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(errOutput)
+		err := json.NewEncoder(w).Encode(errOutput)
+		if err != nil {
+			json.NewEncoder(w).Encode(err.Error())
+		}
 	}else {
-		w.Header().Set("Content-Type", "application/json")
 		resOutput := resOutput{outputJson{Result: string(stdout)}}
-		json.NewEncoder(w).Encode(resOutput)
-
+		err := json.NewEncoder(w).Encode(resOutput)
+		if err != nil {
+			json.NewEncoder(w).Encode(err.Error())
+		}
 	}
 }
 
