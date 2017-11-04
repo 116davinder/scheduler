@@ -4,12 +4,13 @@ import (
 	"net/http"
 	"os/exec"
 	"encoding/json"
+	"log"
 )
 
-type InputJson struct {
-	Name  string `json:"name"`
-	Query []byte `json:"query"`
-}
+type inputJson struct {
+	Module string `json:"module"`
+	Args string `json:"args"`
+	}
 
 type outputJson struct {
 	Result string `json:"result"`
@@ -17,6 +18,14 @@ type outputJson struct {
 
 type errOutput []outputJson
 type resOutput []outputJson
+type inputs []inputJson
+
+func commandStart(){
+	cmd := exec.Command("echo", "hola run")
+	log.Printf("Running command and waiting for it to finish...")
+	err := cmd.Run()
+	log.Printf("Command finished with error: %v", err)
+}
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
 	cmd := exec.Command("echo","sleep")
@@ -42,5 +51,5 @@ func adhoc(w http.ResponseWriter, req *http.Request) {
 func main() {
 	router := &http.ServeMux{}
 	router.HandleFunc("/adhoc", adhoc)
-	http.ListenAndServe(":5000", router)
+	log.Fatal(http.ListenAndServe(":5000", router))
 }

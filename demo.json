@@ -1,5 +1,5 @@
 {
   "name": "adhoc test query",
-  "bash": "sh",
-  "query": "echo hola"
+  "bash_module": "echo",
+  "query": "hola"
 }
