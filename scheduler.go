@@ -28,23 +28,28 @@ func commandStart() {
 }
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
-	cmd := exec.Command("echo", "sleep")
-	stdout, err := cmd.Output()
-	w.Header().Set("Content-Type", "application/json")
+	switch req.Method {
+	case "GET":
+		cmd := exec.Command("echo", "sleep")
+		stdout, err := cmd.Output()
+		w.Header().Set("Content-Type", "application/json")
 
-	if err != nil {
-		errOutput := errOutput{outputJson{Result: string(err.Error())}}
-		w.WriteHeader(http.StatusBadRequest)
-		err := json.NewEncoder(w).Encode(errOutput)
 		if err != nil {
-			json.NewEncoder(w).Encode(err.Error())
+			errOutput := errOutput{outputJson{Result: string(err.Error())}}
+			w.WriteHeader(http.StatusBadRequest)
+			err := json.NewEncoder(w).Encode(errOutput)
+			if err != nil {
+				json.NewEncoder(w).Encode(err.Error())
+			}
+		} else {
+			resOutput := resOutput{outputJson{Result: string(stdout)}}
+			err := json.NewEncoder(w).Encode(resOutput)
+			if err != nil {
+				json.NewEncoder(w).Encode(err.Error())
+			}
 		}
-	} else {
-		resOutput := resOutput{outputJson{Result: string(stdout)}}
-		err := json.NewEncoder(w).Encode(resOutput)
-		if err != nil {
-			json.NewEncoder(w).Encode(err.Error())
-		}
+	case "POST":
+		log.Print("Hello Post Request")
 	}
 }
 

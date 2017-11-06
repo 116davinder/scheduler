@@ -1,0 +1,12 @@
+switch r.Method {
+case "GET":
+	// Serve the resource.
+case "POST":
+	// Create a new record.
+case "PUT":
+	// Update an existing record.
+case "DELETE":
+	// Remove the record.
+default:
+	// Give an error message.
+}
