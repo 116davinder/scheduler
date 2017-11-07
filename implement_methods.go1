@@ -10,3 +10,26 @@ case "DELETE":
 default:
 	// Give an error message.
 }
+
+
+
+Logic 1
+
+cmd := exec.Command("echo", "sleep")
+stdout, err := cmd.Output()
+w.Header().Set("Content-Type", "application/json")
+
+if err != nil {
+	errOutput := errOutput{outputJson{Result: string(err.Error())}}
+	w.WriteHeader(http.StatusBadRequest)
+	err := json.NewEncoder(w).Encode(errOutput)
+	if err != nil {
+		json.NewEncoder(w).Encode(err.Error())
+	}
+} else {
+	resOutput := resOutput{outputJson{Result: string(stdout)}}
+	err := json.NewEncoder(w).Encode(resOutput)
+	if err != nil {
+		json.NewEncoder(w).Encode(err.Error())
+	}
+}

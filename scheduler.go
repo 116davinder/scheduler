@@ -1,10 +1,9 @@
 package main
 
 import (
-	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
-	"os/exec"
 )
 
 type inputJson struct {
@@ -20,36 +19,20 @@ type errOutput []outputJson
 type resOutput []outputJson
 type inputs []inputJson
 
-func commandStart() {
-	cmd := exec.Command("echo", "hola run")
-	log.Printf("Running command and waiting for it to finish...")
-	err := cmd.Run()
-	log.Printf("Command finished with error: %v", err)
+func adhocGet(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hola adhocGet Function")
+}
+
+func adhocPost(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "Hola adhocPost Function")
 }
 
 func adhoc(w http.ResponseWriter, req *http.Request) {
 	switch req.Method {
 	case "GET":
-		cmd := exec.Command("echo", "sleep")
-		stdout, err := cmd.Output()
-		w.Header().Set("Content-Type", "application/json")
-
-		if err != nil {
-			errOutput := errOutput{outputJson{Result: string(err.Error())}}
-			w.WriteHeader(http.StatusBadRequest)
-			err := json.NewEncoder(w).Encode(errOutput)
-			if err != nil {
-				json.NewEncoder(w).Encode(err.Error())
-			}
-		} else {
-			resOutput := resOutput{outputJson{Result: string(stdout)}}
-			err := json.NewEncoder(w).Encode(resOutput)
-			if err != nil {
-				json.NewEncoder(w).Encode(err.Error())
-			}
-		}
+		adhocGet(w, req)
 	case "POST":
-		log.Print("Hello Post Request")
+		adhocPost(w, req)
 	}
 }
 
