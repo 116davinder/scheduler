@@ -1,8 +1,17 @@
 # Goal 1
 
+#TODO Use  either Gorilla or HttpRouter.
+
 ## List of API
-* /adhoc/{ id }/submit    **[POST]**
-* /adhoc/{ id }/status **[GET]**
+
+List all adhoc queries.
+* /adhoc/ **[GET]**
+
+List specific adhoc query.
+* /adhoc/{ id } **[GET]**
+
+Submit adhoc query.
+* /adhoc/   **[POST]**
 
 ## Code Analysis
 * Refactor code into function and multiple files.
