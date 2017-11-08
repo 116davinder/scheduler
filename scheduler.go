@@ -19,7 +19,7 @@ type errOutput []outputJson
 type resOutput []outputJson
 type inputs []inputJson
 
-func adhocGet(w http.ResponseWriter, r *http.Request) {
+func adhocGet(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Hola adhocGet Function")
 }
 
