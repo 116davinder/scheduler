@@ -47,5 +47,6 @@ func muxServer() {
 }
 
 func main() {
+	log.Println("Starting Web Server...")
 	muxServer()
 }

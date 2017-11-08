@@ -1,6 +1,8 @@
 # Goal 1
 
-#TODO Use  either Gorilla or HttpRouter.
+#TODO 
+1. Use  either Gorilla or HttpRouter.
+2. https://github.com/kelseyhightower/hashiapp/blob/master/main.go (read code first)
 
 ## List of API
 
