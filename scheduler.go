@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"encoding/json"
 )
 
 type inputJson struct {
@@ -17,17 +18,20 @@ type outputJson struct {
 
 type errOutput []outputJson
 type resOutput []outputJson
-type inputs []inputJson
 
 func adhocGet(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hola adhocGet Function")
+	fmt.Fprintf(w, "Hola")
 }
 
 func adhocPost(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hola adhocPost Function")
+	reqInput := inputJson{}
+ 	json.NewDecoder(req.Body).Decode(&reqInput)
+ 	json.NewEncoder(w).Encode(&reqInput)
 }
 
+
 func adhoc(w http.ResponseWriter, req *http.Request) {
+	//w.Header().Set("Content-Type", "application/json")
 	switch req.Method {
 	case "GET":
 		adhocGet(w, req)
