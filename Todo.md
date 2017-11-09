@@ -1,8 +1,9 @@
 # Goal 1
 
-#TODO 
-1. Use  either Gorilla or HttpRouter.
+#TODO
+1. Use  either Gorilla or HttpRouter.    Done (Gorilla)
 2. https://github.com/kelseyhightower/hashiapp/blob/master/main.go (read code first)
+3. https://thenewstack.io/make-a-restful-json-api-go/
 
 ## List of API
 
