@@ -8,8 +8,6 @@ import (
 	"github.com/chilts/sid"
 )
 
-var uuid = sid.Id()
-
 type inputJson struct {
 	Module string `json:"module"`
 	Args   string `json:"args"`
@@ -27,6 +25,8 @@ func adhocGet(w http.ResponseWriter, req *http.Request) {
 }
 
 func adhocPost(w http.ResponseWriter, req *http.Request) {
+	uuid := sid.Id()
+	fmt.Fprint(w,uuid)
 	reqInput := inputJson{}
  	json.NewDecoder(req.Body).Decode(&reqInput)
  	json.NewEncoder(w).Encode(&reqInput)
