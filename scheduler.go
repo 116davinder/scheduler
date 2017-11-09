@@ -5,7 +5,10 @@ import (
 	"log"
 	"net/http"
 	"encoding/json"
+	"github.com/chilts/sid"
 )
+
+var uuid = sid.Id()
 
 type inputJson struct {
 	Module string `json:"module"`
