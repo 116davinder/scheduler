@@ -15,25 +15,13 @@ var routes = Routes{
 	Route{
 		"Index",
 		"GET",
-		"/",
-		Index,
+		"/adhoc",
+		adhocReturnJSON,
 	},
 	Route{
 		"TodoIndex",
-		"GET",
-		"/todos",
-		TodoIndex,
-	},
-	Route{
-		"TodoCreate",
 		"POST",
-		"/todos",
-		TodoCreate,
-	},
-	Route{
-		"TodoShow",
-		"GET",
-		"/todos/{todoId}",
-		TodoShow,
+		"/adhoc",
+		adhocAcceptJSON,
 	},
 }

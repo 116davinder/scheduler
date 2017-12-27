@@ -20,7 +20,7 @@ WORKDIR /app
 #RUN glide install
 
 # Exporting Ports for Application
-EXPOSE 5000
+EXPOSE 80
 
 # Creating Volume for Persistent Data
 #VOLUME ["/app-data"]
@@ -28,8 +28,9 @@ EXPOSE 5000
 # Adding Source Code to Container
 ADD . .
 
+RUN go build
 # Exporting Environment Varaiables
 #ENV APPLICATION_ENVIRONMENT DEVELOPMENT
 
 # Running Application
-CMD ["go", "scheduler.go"]
+CMD ["/app/app]
